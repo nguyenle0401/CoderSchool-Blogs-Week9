@@ -49,7 +49,8 @@ const BlogDetailPage = () => {
 
   //Function to call Middleware action to update blog reaction and then send action to redux reducer
   const handleReactionBlog = (type, reaction, blog) => {
-    dispatch(blogActions.updateReactionBlog(type, blog.id, reaction))
+    console.log("hishis", blog)
+    dispatch(blogActions.updateReactionBlog(type, blog._id, reaction))
   }
 
   //Function to call Middleware action to update review reaction and then send action to redux reducer

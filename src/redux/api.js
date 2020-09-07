@@ -3,13 +3,13 @@ import store from "./store";
 import { alertActions } from "./actions/alert.actions";
 
 //Create a new api object
-const accessTokenObj = JSON.parse(localStorage.getItem("Token:"));
+const accessTokenObj = localStorage.getItem("accessToken");
 console.log(accessTokenObj);
 const api = axios.create({
   baseURL: process.env.REACT_APP_HOST,
   headers: {
     "Content-Type": "application/json",
-    authentication: "Bearer " + accessTokenObj,
+    authorization: "Bearer " + accessTokenObj,
   },
 });
 

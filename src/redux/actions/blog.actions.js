@@ -33,8 +33,8 @@ const getSingleBlog = (blogId) => async (dispatch) => {
 const createReview = (blogId, reviewText) => async (dispatch) => {
   dispatch({ type: types.CREATE_REVIEW_REQUEST, payload: null });
   try {
-    await api.post(`/blogs/${blogId}/reviews`, { content: reviewText });
-    const res = await api.get(`/blogs/${blogId}`);
+    const res = await api.post(`/reviews/blogs/${blogId}`, { content: reviewText });
+    // const res = await api.get(`/blogs/${blogId}`);
     dispatch({
       type: types.CREATE_REVIEW_SUCCESS,
       payload: res.data.data,
@@ -53,7 +53,10 @@ const createNewBlog = (title, content, images) => async (dispatch) => {
     formData.append("content", content);
     for (let i = 0; i < images.length; i++)
       formData.append("imagesUpload", images[i]);
-
+    // const formData = {
+    //   title: title,
+    //   content: content,
+    // };
     const response = await api.post("/blogs", formData);
 
     dispatch({ type: types.CREATE_BLOG_SUCCESS, payload: response.data.data });
@@ -67,6 +70,7 @@ const createNewBlog = (title, content, images) => async (dispatch) => {
 const updateReactionBlog = (targetType, target, reaction) => async (
   dispatch
 ) => {
+  console.log("adfsdafsadfdsdfasdfasdfasdfsd", targetType, target, reaction);
   dispatch({ type: types.UPDATE_REACTION_BLOG_REQUEST, payload: null });
   try {
     await api.post("/reactions", { targetType, target, emoji: reaction });

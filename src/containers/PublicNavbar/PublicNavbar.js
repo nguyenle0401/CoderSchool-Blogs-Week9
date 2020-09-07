@@ -23,6 +23,7 @@ const PublicNavbar = () => {
 
   const loginWithGoogle = (response) => {
     console.log("mi", response);
+    console.log("ahihi", response.accessToken);
     dispatch(authActions.loginGoogle(response.accessToken));
   };
 
@@ -59,7 +60,8 @@ const PublicNavbar = () => {
         </Modal.Dialog>
         <Modal.Dialog>
           <GoogleLogin
-            clientId="958267965643-ejgf0b8m4ccg4151lsaop2kk68kvb8ts.apps.googleusercontent.com"
+            // clientId="958267965643-ejgf0b8m4ccg4151lsaop2kk68kvb8ts.apps.googleusercontent.com"
+            clientId="958267965643-kunr111c014g7paltvuvc939np6jnggt.apps.googleusercontent.com"
             onSuccess={loginWithGoogle}
             onFailure={loginWithGoogle}
           />
