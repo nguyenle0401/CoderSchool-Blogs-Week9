@@ -9,7 +9,7 @@ const api = axios.create({
   baseURL: "https://social-api-cs.great.dev/",
   headers: {
     "Content-Type": "application/json",
-    authorization: "Bearer " + accessTokenObj,
+    // authorization: "Bearer " + accessTokenObj,
   },
 });
 
