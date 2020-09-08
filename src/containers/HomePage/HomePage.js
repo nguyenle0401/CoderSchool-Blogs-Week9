@@ -36,7 +36,7 @@ const HomePage = () => {
     <div className="all-home">
       <Container className="bg-homemain">
         <Jumbotron className="text-center bg-home">
-          <h1 className="T-Blog">T - Blog</h1>
+          <h1 className="T-Blog">Big Big World</h1>
           <p>Write about your amazing experiences.</p>
           {isAuthenticated && (
             <Link to="/blog/add">

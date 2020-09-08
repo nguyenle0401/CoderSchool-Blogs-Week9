@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import "./login.css";
 import { Redirect, Link } from "react-router-dom";
+import { Modal } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { Container, Form, Button } from "react-bootstrap";
 import { authActions } from "../../redux/actions/auth.actions";
-
+import FacebookLogin from "react-facebook-login";
+import GoogleLogin from "react-google-login";
 //LoginPage (statefull component)
 const LoginPage = () => {
   //Call action to redux store
@@ -28,9 +31,19 @@ const LoginPage = () => {
   //Update local state (formData and errors) when user is typing
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
-    setErrors({...errors, [event.target.name]: ''})
+    setErrors({ ...errors, [event.target.name]: "" });
   };
-
+  //Login with Facebook
+  const loginWithFacebook = (response) => {
+    console.log(response);
+    dispatch(authActions.loginFace(response.accessToken));
+  };
+  //Login with Google
+  const loginWithGoogle = (response) => {
+    console.log("mi", response);
+    console.log("ahihi", response.accessToken);
+    dispatch(authActions.loginGoogle(response.accessToken));
+  };
   //Call Middleware and then send action to redux reducer when user clicks submit
   const handleSubmit = (event) => {
     //Prevent the page from reloading
@@ -41,15 +54,15 @@ const LoginPage = () => {
 
     //Set errors if user leaves any input blank
     if (!email) {
-      setErrors({ ...errors, email: "Please fill out email"});
+      setErrors({ ...errors, email: "Please fill out email" });
       return;
     }
-    if (!password){
-      setErrors({...errors, password: 'Please fill out password'})
+    if (!password) {
+      setErrors({ ...errors, password: "Please fill out password" });
       return;
     }
 
-    //Call Middleware and then send action to redux reducer 
+    //Call Middleware and then send action to redux reducer
     dispatch(authActions.loginRequest({ email, password }));
   };
 
@@ -68,7 +81,7 @@ const LoginPage = () => {
         <div className="style-form-login">
           <Form onSubmit={handleSubmit} className="form-login">
             <div className="text-center mb-3">
-              <h1 className="text-primary" style={{ "fontSize": "25px" }}>
+              <h1 className="text-primary" style={{ fontSize: "25px" }}>
                 Sign In
               </h1>
             </div>
@@ -126,6 +139,24 @@ const LoginPage = () => {
               <p>
                 Don't have an account? <Link to="/register">Sign Up</Link>
               </p>
+              <div className="style-fb">
+                <Modal.Dialog>
+                  <FacebookLogin
+                    appId="215525599776984"
+                    autoLoad={false}
+                    fields="name,email,picture"
+                    callback={loginWithFacebook}
+                  />
+                </Modal.Dialog>
+                <Modal.Dialog>
+                  <GoogleLogin
+                    // clientId="958267965643-ejgf0b8m4ccg4151lsaop2kk68kvb8ts.apps.googleusercontent.com"
+                    clientId="958267965643-kunr111c014g7paltvuvc939np6jnggt.apps.googleusercontent.com"
+                    onSuccess={loginWithGoogle}
+                    onFailure={(e) => console.log(e)}
+                  />
+                </Modal.Dialog>
+              </div>
             </div>
           </Form>
         </div>
