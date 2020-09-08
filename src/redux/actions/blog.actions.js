@@ -33,7 +33,9 @@ const getSingleBlog = (blogId) => async (dispatch) => {
 const createReview = (blogId, reviewText) => async (dispatch) => {
   dispatch({ type: types.CREATE_REVIEW_REQUEST, payload: null });
   try {
-    const res = await api.post(`/reviews/blogs/${blogId}`, { content: reviewText });
+    const res = await api.post(`/reviews/blogs/${blogId}`, {
+      content: reviewText,
+    });
     // const res = await api.get(`/blogs/${blogId}`);
     dispatch({
       type: types.CREATE_REVIEW_SUCCESS,
@@ -48,16 +50,10 @@ const createReview = (blogId, reviewText) => async (dispatch) => {
 const createNewBlog = (title, content, images) => async (dispatch) => {
   dispatch({ type: types.CREATE_BLOG_REQUEST, payload: null });
   try {
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("content", content);
-    for (let i = 0; i < images.length; i++)
-      formData.append("imagesUpload", images[i]);
-    // const formData = {
-    //   title: title,
-    //   content: content,
-    // };
-    const response = await api.post("/blogs", formData);
+    const response = await api.post("/blogs", {
+      title,
+      content,
+    });
 
     dispatch({ type: types.CREATE_BLOG_SUCCESS, payload: response.data.data });
     dispatch(alertActions.setAlert("New blog has been created", "Success"));

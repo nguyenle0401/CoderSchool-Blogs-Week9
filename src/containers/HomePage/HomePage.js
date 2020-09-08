@@ -11,6 +11,7 @@ import Pagination from "../../components/Pagination";
 const HomePage = () => {
   const loading = useSelector((state) => state.loading);
   const blogs = useSelector((state) => state.blog.blogs);
+  console.log(blogs);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const [pageNum, setPageNum] = useState(1);
   const [totalPageNum] = useState(9);

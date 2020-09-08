@@ -6,7 +6,7 @@ import { alertActions } from "./actions/alert.actions";
 const accessTokenObj = localStorage.getItem("accessToken");
 console.log(accessTokenObj);
 const api = axios.create({
-  baseURL: "https://social-api-cs.great.dev/",
+  baseURL: process.env.REACT_APP_HOST,
   headers: {
     "Content-Type": "application/json",
     // authorization: "Bearer " + accessTokenObj,
