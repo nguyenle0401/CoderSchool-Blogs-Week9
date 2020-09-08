@@ -70,6 +70,9 @@ const loginFace = (token) => async (dispatch) => {
 
   try {
     let response = await api.get(`/auth/login/facebook/${token}`);
+    api.defaults.headers.common["authorization"] =
+      "Bearer " + response.data.data.accessToken;
+
     dispatch({
       type: types.LOGIN_REQUEST_SUCCESS,
       payload: response.data.data,
@@ -85,6 +88,9 @@ const loginGoogle = (token) => async (dispatch) => {
 
   try {
     let response = await api.get(`/auth/login/google/${token}`);
+    api.defaults.headers.common["authorization"] =
+      "Bearer " + response.data.data.accessToken;
+
     dispatch({
       type: types.LOGIN_REQUEST_SUCCESS,
       payload: response.data.data,
